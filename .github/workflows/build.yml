@@ -67,11 +67,11 @@ jobs:
         submodules: true
     
     - name: Install Dependencies
-      run: ${{github.workspace}}/build-scripts/prepare-ubuntu.sh
+      run: ${{github.workspace}}/build-scripts/for-win64/prepare-ubuntu.sh
       
     - name: Build
       working-directory: ${{github.workspace}}
-      run: ${{github.workspace}}/build-scripts/build-on-ubuntu.sh ${{needs.calc_ver.outputs.project_ver}} ${{needs.calc_ver.outputs.build_ver}}
+      run: ${{github.workspace}}/build-scripts/for-win64/build-on-ubuntu.sh ${{needs.calc_ver.outputs.project_ver}} ${{needs.calc_ver.outputs.build_ver}}
 
     - name: Upload result
       uses: nanoufo/action-upload-artifacts-and-release-assets@v1.4

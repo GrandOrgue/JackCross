@@ -1,13 +1,15 @@
 #!/bin/bash
 
-BUILD_DIR=`pwd`/build/win64
-mkdir -p $BUILD_DIR
-rm -rf $BUILD_DIR/*
-
-SRC_DIR=$(readlink -f $(dirname $0)/../../submodules/Jack)
+SRC_DIR=$(readlink -f $(dirname $0)/../..)
 echo SRC_DIR=$SRC_DIR
 
-cp -r $SRC_DIR/* $BUILD_DIR/
+BUILD_DIR=`pwd`/build/win64
+mkdir -p $BUILD_DIR
+pushd $BUILD_DIR
+
+rm -rf *
+
+cp -r $SRC_DIR/submodules/Jack/* ./
     
 PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/lib64/pkgconfig:/usr/share/pkgconfig"
 export PKG_CONFIG_PATH
@@ -15,8 +17,8 @@ export PKG_CONFIG_PATH
 set -x
 umask 022
 
-pushd $BUILD_DIR
-PKGCONFIG=x86_64-w64-mingw32-pkg-config CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ CFLAGS="-I/usr/x86_64-w64-mingw32/sys-root/mingw/include/tre/" CXXFLAGS="-I/usr/x86_64-w64-mingw32/sys-root/mingw/include/tre/"  ./waf configure  --dist-target=mingw  --winmme --portaudio --prefix=/
+
+PKGCONFIG=x86_64-w64-mingw32-pkg-config CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ ./waf configure  --dist-target=mingw  --winmme --portaudio --prefix=/
 ./waf build
 
 (echo prefix=/usr/x86_64-w64-mingw32/sys-root/mingw

@@ -6,7 +6,7 @@ SRC_DIR=$(readlink -f $(dirname $0)/../..)
 echo SRC_DIR=$SRC_DIR
 
 DEBIAN_PKG_NAME=jack-mingw-w64
-VERSION=${1:-1.9.19}
+VERSION=${1:-1.9.20}
 BUILD_VERSION=${2:-0.os}
 
 BUILD_DIR=`pwd`/build/win64
